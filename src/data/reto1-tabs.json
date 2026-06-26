@@ -1,0 +1,22 @@
+{
+  "tabs": [
+    {
+      "id": "resumen",
+      "label": "Resumen",
+      "heading": "¿Qué es este proyecto?",
+      "content": "Una pequeña app de práctica para aprender JavaScript construyendo componentes reales desde cero, sin frameworks. La idea no es que se vea perfecto, sino que entiendas el motor que hay debajo de toda interfaz interactiva."
+    },
+    {
+      "id": "caracteristicas",
+      "label": "Características",
+      "heading": "Lo que vas a construir",
+      "content": "Tres componentes de dificultad creciente: un sistema de tabs accesible por teclado, un selector con búsqueda y lista reordenable, y un formulario que habla con un backend real manejando carga y errores. Cada uno introduce una idea nueva."
+    },
+    {
+      "id": "contacto",
+      "label": "Contacto",
+      "heading": "¿Dudas?",
+      "content": "Si te atascas, primero intenta describir el problema en voz alta: la mitad de los bugs se resuelven solos al explicarlos. Si sigues atascado, pide una pista, no la solución completa. El objetivo es que el músculo lo desarrolles tú."
+    }
+  ]
+}

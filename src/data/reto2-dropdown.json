@@ -1,0 +1,14 @@
+{
+  "items": [
+    { "id": "javascript", "label": "JavaScript", "category": "Lenguaje" },
+    { "id": "python",     "label": "Python",     "category": "Lenguaje" },
+    { "id": "typescript", "label": "TypeScript", "category": "Lenguaje" },
+    { "id": "java",       "label": "Java",       "category": "Lenguaje" },
+    { "id": "rust",       "label": "Rust",       "category": "Lenguaje" },
+    { "id": "go",         "label": "Go",         "category": "Lenguaje" },
+    { "id": "csharp",     "label": "C#",         "category": "Lenguaje" },
+    { "id": "ruby",       "label": "Ruby",       "category": "Lenguaje" },
+    { "id": "swift",      "label": "Swift",      "category": "Lenguaje" },
+    { "id": "kotlin",     "label": "Kotlin",     "category": "Lenguaje" }
+  ]
+}
