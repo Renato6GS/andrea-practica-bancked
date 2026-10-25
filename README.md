@@ -90,7 +90,10 @@ El esquema y el sembrado se ejecutan en cada arranque de forma idempotente
 
 ## Endpoints
 
-Todos menos `/health` y `/login` exigen sesión.
+Ya **no** se exige sesión ni cookie: todos los endpoints son públicos y
+aceptan peticiones desde cualquier origen. Si la petición trae una cookie
+`session` válida se usa ese usuario; si no, se atribuye a la cuenta sembrada
+(`Andrea`). `/login` sigue funcionando por si se quiere practicar el flujo.
 
 | Método | Ruta | Qué hace |
 |---|---|---|

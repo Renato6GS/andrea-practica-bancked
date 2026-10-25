@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { findUserByLogin } from './db.js';
+import { findUserByLogin, findUserByUsername } from './db.js';
 
 const COOKIE_NAME = 'session';
 const isProd = process.env.NODE_ENV === 'production';
@@ -37,17 +37,29 @@ function extractToken(req) {
   return null;
 }
 
-export function requireAuth(req, res, next) {
+// Auth abierta: ya no se exige cookie ni key. Si llega una sesión válida se
+// usa esa; si no, la petición se atribuye a la cuenta sembrada (Andrea), así
+// cualquiera puede consultar los endpoints libremente.
+export async function requireAuth(req, res, next) {
   const token = extractToken(req);
-  if (!token) {
-    return res.status(401).json({ message: 'No autenticado. Falta la sesión.' });
+  if (token) {
+    try {
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = { id: payload.sub, username: payload.username };
+      return next();
+    } catch {
+      // Sesión inválida o expirada: se ignora y se usa la cuenta por defecto.
+    }
   }
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: payload.sub, username: payload.username };
-    next();
-  } catch {
-    return res.status(401).json({ message: 'Sesión inválida o expirada.' });
+    const user = await findUserByUsername(process.env.SEED_USERNAME || 'Andrea');
+    if (!user) {
+      return res.status(500).json({ message: 'No existe la cuenta por defecto.' });
+    }
+    req.user = { id: user.id, username: user.username };
+    return next();
+  } catch (err) {
+    return next(err);
   }
 }
 

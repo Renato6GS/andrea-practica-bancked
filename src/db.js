@@ -90,6 +90,11 @@ export async function findUserByLogin(login) {
   return res.rows[0] || null;
 }
 
+export async function findUserByUsername(username) {
+  const res = await pool.query('SELECT * FROM users WHERE username = $1 LIMIT 1', [username]);
+  return res.rows[0] || null;
+}
+
 export async function emailExists(email) {
   const res = await pool.query('SELECT 1 FROM users WHERE email = $1 LIMIT 1', [email]);
   return res.rowCount > 0;

@@ -9,22 +9,9 @@ import { router } from './routes.js';
 
 const app = express();
 
-// CORS con credenciales: el origin debe ser específico (no "*").
-const allowedOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:5173')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean);
-
-app.use(
-  cors({
-    origin(origin, cb) {
-      // Permite peticiones sin origin (Postman, curl) y las del frontend.
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error(`Origen no permitido por CORS: ${origin}`));
-    },
-    credentials: true,
-  })
-);
+// CORS abierto: se acepta cualquier origen (se refleja el origin de la
+// petición para que credentials siga funcionando si alguien manda cookie).
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -61,7 +48,6 @@ async function start() {
   await seedApprentice();
   app.listen(PORT, () => {
     console.log(`Backend escuchando en el puerto ${PORT}`);
-    console.log(`Orígenes CORS permitidos: ${allowedOrigins.join(', ')}`);
   });
 }
 
